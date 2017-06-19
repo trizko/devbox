@@ -1,0 +1,10 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =8
+let g:netrw_dirhist_1='/Users/trizko/Dropbox (Personal)/repos/javascript/bibibox'
+let g:netrw_dirhist_2='/Users/trizko/Dropbox (Personal)/repos/haskell/haskell-programming'
+let g:netrw_dirhist_3='/Users/trizko/Dropbox (Personal)/repos/haskell/haskell-programming/2chapter'
+let g:netrw_dirhist_4='/Users/trizko/Dropbox (Personal)/repos/haskell/haskell-programming/3chapter'
+let g:netrw_dirhist_5='/Users/trizko/Dropbox (Personal)/repos/haskell/haskell-programming'
+let g:netrw_dirhist_6='/Users/trizko/Dropbox (Personal)/repos/haskell/haskell-programming/4chapter'
+let g:netrw_dirhist_7='/Users/trizko/Dropbox (Personal)/repos/rust/guessing_game'
+let g:netrw_dirhist_8='/Users/trizko/dev/haskell/lambs/app'
