@@ -30,7 +30,7 @@ RUN set -x \
         strace \
         tcpdump \
         tmux \
-        vim
+        neovim
 
 # install nvm
 RUN set -x \

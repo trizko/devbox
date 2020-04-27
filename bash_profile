@@ -1,24 +1,43 @@
-#terminal view changes
-parse_git_branch(){
-  git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
+################################
+# bash settings
+shopt -s histappend
+export PROMPT_COMMAND="history -a; history -n"
+
+# view changes
+active_prompt(){
+    local reset=$(tput sgr0)
+    local red=$(tput setaf 1)
+    local green=$(tput setaf 2)
+    local yellow=$(tput setaf 3)
+    local blue=$(tput setaf 4)
+    local purple=$(tput setaf 5)
+    local cyan=$(tput setaf 6)
+    local white=$(tput setaf 7)
+    local bold=$(tput bold)
+    local underlined=$(tput smul)
+    local git_branch=$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/')
+    printf '\001%s\002%s\001%s\002%s\001%s\002%s\001%s\002%s\n\001%s\002$>\001%s\002 ' \
+			"$cyan" "$USER" "$yellow" "@" "$cyan" "$PWD" "$yellow" "$git_branch" "$green" "$reset"
 }
-export PS1="\[\033[36m\]\u\[\033[m\]@\[\033[32m\]\h:\[\033[33;1m\]\W\[\033[31m\]\$(parse_git_branch)\[\033[00m\]$ "
+export PS1='$(active_prompt)'
 export CLICOLOR=1
 export LSCOLORS=GxFxCxDxBxegedabagaced
 
 # ENV settings
 export PATH="$PATH:/usr/local/bin/"
+export PATH="$PATH:$HOME/bin/"
 
 #general shortcuts
-alias ls="ls --color=auto"
 alias la="ls -la"
 alias ll="ls -l"
 alias lstree="find . -not -path '*/\.*'"
 
 # dotfiles shortcuts
-alias prof="vim ~/.bash_profile"
+alias vim="nvim"
+alias prof="nvim ~/.bash_profile"
 alias reprof=". ~/.bash_profile"
-alias tconf="vim ~/.tmux.conf"
+alias tconf="nvim ~/.tmux.conf"
+alias vimrc="nvim ~/.config/nvim/init.vim"
 
 #file shortcuts
 alias cdev="cd ~/dev"
@@ -50,24 +69,9 @@ alias gprum="git pull --rebase upstream master"
 alias grb="git rebase"
 alias gs="git status"
 
-# Haskell / Stack / Cabal / Elm
-export STACK_INSTALL_PATH="$HOME/.local/bin/"
-export PATH="$PATH:$STACK_INSTALL_PATH"
-export PATH="$HOME/.cabal/bin:$PATH"
+# git go forward/back in commit
+alias gback="git checkout HEAD~"
+gfwd() {
+    git checkout $(git rev-list --topo-order HEAD.."$*" | tail -1)
+}
 
-# vim
-alias vimrc="vim ~/.vimrc"
-
-# nvm
-source ~/.nvm/nvm.sh
-
-### GO / GVM
-export GOPATH="$HOME/dev/go"
-export GOROOT="/usr/local/opt/go/libexec"
-export GOBIN="$GOPATH/bin"
-export PATH="$GOBIN:$PATH"
-alias gowork="cd $GOPATH"
-alias gore="cd $GOPATH/src/github.com/trizko"
-
-# custom
-source $HOME/.custom_bash 2>/dev/null
