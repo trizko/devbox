@@ -2,6 +2,7 @@
 # bash settings
 shopt -s histappend
 export PROMPT_COMMAND="history -a; history -n"
+export HISTCONTROL=ignoreboth:erasedups
 
 # view changes
 active_prompt(){
